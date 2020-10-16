@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
 import numpy as np
+from numpy import linalg as LA
 
 # Centroid Decomposition, with the optional possibility of specifying truncation or usage of initial sign vectors
 def centroid_decomposition(matrix, truncation = 0, SV = None):
@@ -60,11 +61,11 @@ def local_sign_vector(matrix, Z):
     n = len(matrix)
     m = len(matrix[0])
     eps = np.finfo(np.float64).eps
-    
+        
     # calculate initial product of X^T * Z with the current version of Z
     direction = matrix.T @ Z
     # calculate initial value of ||X^T * Z||
-    lastNorm = np.linalg.norm(direction) + eps
+    lastNorm = np.linalg.norm(direction) ** 2 + eps
     
     flipped = True
     
@@ -74,9 +75,13 @@ def local_sign_vector(matrix, Z):
         
         for i in range(0, n):
             signDouble = Z[i] * 2
+            gradFlip = 0.0
             
             # calculate how ||X^T * Z|| would change if we would change the sign at position i
-            gradFlip = np.linalg.norm(direction - signDouble * matrix[i])
+            # change to the values of D = X^T * Z is calculated as D_j_new = D_j - 2 * Z_i * M_ij for all j
+            for j in range(0, m):
+                localMod = direction[j] - signDouble * matrix[i][j]
+                gradFlip += localMod * localMod
             
             # if it results in augmenting ||X^T * Z||
             # flip the sign and replace cached version of X^T * Z and its norm
@@ -85,7 +90,8 @@ def local_sign_vector(matrix, Z):
                 Z[i] = Z[i] * -1
                 lastNorm = gradFlip + eps
                 
-                direction -= signDouble * matrix[i]
+                for j in range(0, m):
+                    direction[j] -= signDouble * matrix[i][j]
                 #end for
             #end if
         #end for
@@ -107,21 +113,9 @@ def default_SV(n, k):
     return SV
 #end function
 
-
-#!/usr/bin/python3
-
-#import numpy as np
-#from centroid_decomp import centroid_decomposition
-
-import time
-
 def main():
-    matrix = np.loadtxt("matrix_100K.txt")
-    start_time = time.time();
+    matrix = np.loadtxt("matrix_100K_normal.txt")
     L, R, Z = centroid_decomposition(matrix)
-    end_time = time.time()
-    
-    print((end_time - start_time))
 
     np.savetxt("matrix_100K.L.txt", L, fmt="%10.5f")
     np.savetxt("matrix_100K.R.txt", R, fmt="%10.5f")
