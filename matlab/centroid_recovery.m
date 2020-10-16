@@ -218,6 +218,8 @@ end
 function Z_ret = local_sign_vector(matrix, Z)
     [n, m] = size(matrix);
     
+    Z = local_sign_vector_init(matrix, Z);
+    
     % calculate initial product of X^T * Z with the current version of Z
     direction = matrix' * Z;
     % calculate initial value of ||X^T * Z||
@@ -247,6 +249,28 @@ function Z_ret = local_sign_vector(matrix, Z)
                 direction = direction - signDouble * matrix(i, :);
             end
         end
+    end
+    
+    Z_ret = Z;
+end
+
+
+% Auxiliary function for LSV:
+%   Z is initialized sequentiually where at each step we see which sign would give a larger increase to ||X^T * Z||
+function Z_ret = local_sign_vector_init(matrix, Z)
+    [n, m] = size(matrix);
+    
+    direction = matrix(1, :);
+    
+    for i = 2:n
+        gradPlus = norm(direction + matrix(i, :));
+        gradMinus = norm(direction - matrix(i, :));
+        
+        if gradMinus > gradPlus
+            Z(i) = -1;
+        end
+        
+        direction = direction + Z(i) * matrix(i, :);
     end
     
     Z_ret = Z;
