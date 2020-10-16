@@ -177,6 +177,8 @@ def local_sign_vector(matrix, Z):
     m = len(matrix[0])
     eps = np.finfo(np.float64).eps
     
+    Z = local_sign_vector_init(matrix, Z)
+        
     # calculate initial product of X^T * Z with the current version of Z
     direction = matrix.T @ Z
     # calculate initial value of ||X^T * Z||
@@ -211,6 +213,33 @@ def local_sign_vector(matrix, Z):
             #end if
         #end for
     #end while
+    
+    return Z
+#end function
+
+
+# Auxiliary function for LSV:
+#   Z is initialized sequentiually where at each step we see which sign would give a larger increase to ||X^T * Z||
+def local_sign_vector_init(matrix, Z):
+    n = len(matrix)
+    m = len(matrix[0])
+    direction = matrix[0]
+    
+    for i in range(1, n):
+        gradPlus = 0.0
+        gradMinus = 0.0
+        
+        for j in range(0, m):
+            localModPlus = direction[j] + matrix[i][j]
+            gradPlus += localModPlus * localModPlus
+            localModMinus = direction[j] - matrix[i][j]
+            gradMinus += localModMinus * localModMinus
+                
+        if gradMinus > gradPlus:
+            Z[i] = -1
+        
+        for j in range(0, m):
+            direction[j] += Z[i] * matrix[i][j]
     
     return Z
 #end function

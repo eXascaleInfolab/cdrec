@@ -61,6 +61,8 @@ def local_sign_vector(matrix, Z):
     n = len(matrix)
     m = len(matrix[0])
     eps = np.finfo(np.float64).eps
+    
+    Z = local_sign_vector_init(matrix, Z)
         
     # calculate initial product of X^T * Z with the current version of Z
     direction = matrix.T @ Z
@@ -101,6 +103,33 @@ def local_sign_vector(matrix, Z):
 #end function
 
 
+# Auxiliary function for LSV:
+#   Z is initialized sequentiually where at each step we see which sign would give a larger increase to ||X^T * Z||
+def local_sign_vector_init(matrix, Z):
+    n = len(matrix)
+    m = len(matrix[0])
+    direction = matrix[0]
+    
+    for i in range(1, n):
+        gradPlus = 0.0
+        gradMinus = 0.0
+        
+        for j in range(0, m):
+            localModPlus = direction[j] + matrix[i][j]
+            gradPlus += localModPlus * localModPlus
+            localModMinus = direction[j] - matrix[i][j]
+            gradMinus += localModMinus * localModMinus
+                
+        if gradMinus > gradPlus:
+            Z[i] = -1
+        
+        for j in range(0, m):
+            direction[j] += Z[i] * matrix[i][j]
+    
+    return Z
+#end function
+
+
 #initialize sign vector array with default values
 def default_SV(n, k):
     # default sign vector is (1, 1, ..., 1)^T
@@ -114,7 +143,7 @@ def default_SV(n, k):
 #end function
 
 def main():
-    matrix = np.loadtxt("matrix_100K_normal.txt")
+    matrix = np.loadtxt("matrix_100K.txt")
     L, R, Z = centroid_decomposition(matrix)
 
     np.savetxt("matrix_100K.L.txt", L, fmt="%10.5f")
