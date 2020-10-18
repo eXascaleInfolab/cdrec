@@ -23,18 +23,18 @@ ___
 
 - Python:
 ```bash
-    $ cd python
+    $ cd python/
     $ python recovery.py
 ```
 - C++: 
 ```bash
-    $ cd cpp
+    $ cd cpp/
     $ 
 ```
 - Matlab: 
 
 ```bash
-    $ cd matlab
+    $ cd matlab/
     $ octave run_recovery.m
 ```
 
