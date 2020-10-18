@@ -13,7 +13,7 @@ The code of CDRec is available in C++, Python and Matab. CDRec offers the follow
 ___
 
 ## Prerequisites
-- Numpy (for Python)
+- Numpy (for Python); 
 - The algorithm takes as input a matrix where the columns are incomplete time series, rows are values, and the missing values are designated as NaN. Algorithm outputs a matrix where all NaN values are recovered.
 - The code allows also to perform the decomposition of a matrix where the columns are complete time series.
 
@@ -21,9 +21,23 @@ ___
 
 ## Execution
 
-- Python: Run 
-- C++: Run 
-- Matlab: Run
+- Python:
+```bash
+    $ cd python
+    $ python recovery.py
+```
+- C++: 
+```bash
+    $ cd cpp
+    $ 
+```
+- Matlab: 
+
+```bash
+    $ cd matlab
+    $ octave run_recovery.m
+```
+
 
 ___
 
