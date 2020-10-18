@@ -32,7 +32,7 @@ ___
 CDRec represents the input time series as a relation and maps them into loading and relevance vectors that best account for the correlation. The loading vectors (L) expose the rank of the matrix, which is used to accurately recover the missing blocks. The recovery has been tightly integrated into the open-source analytical RDBMS MonetDB as native UDF (see our ICDE'19 [paper](https://exascale.info/assets/pdf/recovdb19.pdf)). 
 
 
-![](recov_process.png){:height="100%" width="95%"}
+![](recov_process.png)
 
 
 
@@ -51,7 +51,7 @@ the missing blocks. The tool also illustrates how the correlation across time se
 *Result*: The following figure illustrates the result of the recovery. The missing values are shown in dashed
 lines while the recovered blocks are shown in red dashed lines.
 
-![](recov_exp.png){:height="100%" width="100%"}
+![](recov_exp.png)
 
 
 ___
