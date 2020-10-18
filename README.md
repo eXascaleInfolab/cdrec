@@ -1,4 +1,4 @@
-# cdrec
+# CDRec: Recovery of Missing Blocks in Time Series using the Centroid Decomposition
 
 **CDRec** is a matrix-based technique to repair large time series. It uses a a memory-efficient sign vector algorithm to recover missing blocks in incomplete time series. The properties of the sign vector computation can ve visualized [here](http://revival.exascale.info/cd/signvectors.php). Technical details of CDRec can be found in our ICDE 2014 paper:  <a href = "https://exascale.info/assets/pdf/khayati_ICDE14.pdf">Memory-Efficient Centroid Decomposition for Long Time Series </a>. 
 
