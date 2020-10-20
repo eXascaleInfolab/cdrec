@@ -23,6 +23,7 @@ ___
 
 - Python:
 ```bash
+    $ pip2 install numpy
     $ cd python/
     $ python recovery.py
 ```
@@ -37,6 +38,7 @@ ___
 - Matlab: 
 
 ```bash
+    $ sudo apt-get install octave-pkg-dev
     $ cd matlab/
     $ octave run_recovery.m
 ```
