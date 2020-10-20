@@ -7,6 +7,7 @@ The code of CDRec is available in C++, Python and Matab. CDRec offers the follow
 - Efficient recovery of large missing blocks in time series
 - Reconstruct multiple incomplelte time series at a time
 - Parameter free and correlation-aware recovery
+- Centroid Decomposition of matrix of time series (see [Tutorial](https://github.com/eXascaleInfolab/CDTool))
 
 [**Prerequisites**](#prerequisites)  | [**Execution**](#execution) | [**Recovery Description**](#recovery-description)  | [**Contributors**](#contributors) | [**Citation**](#citation)
 
