@@ -15,7 +15,6 @@ ___
 ## Prerequisites
 - Numpy (for Python); matlab/octave (for MATLAB); clang, build-essentials (for C++)
 - The algorithm takes as input a matrix where the columns are incomplete time series, rows are values, and the missing values are designated as NaN. Algorithm outputs a matrix where all NaN values are recovered.
-- The code allows also to perform the decomposition of a matrix where the columns are complete time series.
 
 ___
 
