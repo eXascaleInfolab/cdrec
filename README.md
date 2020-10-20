@@ -28,6 +28,7 @@ ___
 ```
 - C++: 
 ```bash
+    $ sudo apt install build-essential clang
     $ cd cpp/
     $ make all
     $ cd cmake-build-debug/
